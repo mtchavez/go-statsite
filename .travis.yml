@@ -1,2 +1,4 @@
 language: go
+install:
+  - cd ./statsite && go get -d -v ./... && go build -v ./...
 sript: make test
