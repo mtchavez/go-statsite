@@ -1,4 +1,6 @@
 language: go
 install:
+  - go get launchpad.net/gocheck
   - cd $TRAVIS_BUILD_DIR/statsite && go get -d -v ./... && go build -v ./...
-sript: make test
+sript:
+  - cd $TRAVIS_BUILD_DIR/statsite && go test -v ./...
