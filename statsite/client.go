@@ -25,7 +25,7 @@ func (c *Client) Emitter(msg string) (ok bool, err error) {
 
 func NewClient(addr string) (client *Client, err error) {
 	var tcpaddr *net.TCPAddr
-	tcpaddr, err = net.ResolveTCPAddr("tcp", "0.0.0.0:8125")
+	tcpaddr, err = net.ResolveTCPAddr("tcp", addr)
 	if err != nil {
 		log.Println("Error resolving statsite: ", err)
 		return
