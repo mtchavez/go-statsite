@@ -8,6 +8,7 @@ import (
 
 type Client struct {
 	Conn net.Conn
+	addr string
 }
 
 func (c *Client) Emit(m Messenger) (bool, error) {
@@ -16,6 +17,9 @@ func (c *Client) Emit(m Messenger) (bool, error) {
 
 func (c *Client) Emitter(msg string) (ok bool, err error) {
 	ok = false
+	if c.Conn == nil {
+		return
+	}
 	_, err = c.Conn.Write([]byte(msg))
 	if err != nil {
 		return
@@ -36,6 +40,6 @@ func NewClient(addr string) (client *Client, err error) {
 		log.Println("Error connecting to statsite: ", err)
 		return
 	}
-	client = &Client{Conn: conn}
+	client = &Client{Conn: conn, addr: addr}
 	return
 }
