@@ -3,11 +3,16 @@ package statsite
 import (
 	"log"
 	"net"
-	"reflect"
 	"time"
 )
 
+type cl interface {
+	Emit()
+	Emitter()
+}
+
 type Client struct {
+	cl
 	Conn net.Conn
 	addr string
 }
@@ -18,11 +23,7 @@ func (c *Client) Emit(m Messenger) (bool, error) {
 
 func (c *Client) Emitter(msg string) (ok bool, err error) {
 	ok = false
-	v := reflect.Value(c)
-	if v.Kind() != reflect.Struct {
-		return
-	}
-	if v.Field(0).Kind() != reflect.Ptr {
+	if c == nil {
 		return
 	}
 	_, err = c.Conn.Write([]byte(msg))
