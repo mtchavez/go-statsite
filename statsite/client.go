@@ -32,8 +32,7 @@ func NewClient(addr string) (client *Client, err error) {
 		return
 	}
 	var conn *net.TCPConn
-	net.DialTimeout("tcp", addr, 1*time.Second)
-	conn, err = net.DialTCP("tcp", nil, tcpaddr)
+	conn, err = net.DialTimeout("tcp", addr, 1*time.Second)
 	if err != nil {
 		log.Println("Error connecting to statsite: ", err)
 		return
